@@ -10,10 +10,12 @@ $task_deadline_ts = strtotime("+" . $days . " day midnight"); // метка вр
 $current_ts = strtotime('now midnight'); // текущая метка времени
 
 // запишите сюда дату выполнения задачи в формате дд.мм.гггг
-$date_deadline = null;
-
+$date_deadline = date('j.m.Y', $task_deadline_ts);
 // в эту переменную запишите кол-во дней до даты задачи
-$days_until_deadline = null;
+$diff = $task_deadline_ts - time();
+$days_until_deadline = floor((($diff / 60) / 60) /24);
+
+$days_until_deadline = $task_deadline_ts - $current_ts 
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -27,7 +29,6 @@ $days_until_deadline = null;
 
 <body><!--class="overlay"-->
 <h1 class="visually-hidden">Дела в порядке</h1>
-
 <div class="page-wrapper">
     <div class="container container--with-sidebar">
         <header class="main-header">
@@ -108,11 +109,8 @@ $days_until_deadline = null;
                     <label class="checkbox">
                         <a href="/">
                             <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-						<?php if ($show_complete_tasks == 1)
-						{ print "checked"; }
-						?>
-							
-                            <input class="checkbox__input visually-hidden" type="checkbox">
+                            <input class="checkbox__input visually-hidden" type="checkbox"
+								<?= $show_complete_tasks ? 'checked' : '' ?> >							
                             <span class="checkbox__text">Показывать выполненные</span>
                         </a>
                     </label>
@@ -120,7 +118,7 @@ $days_until_deadline = null;
 
                 <table class="tasks">
 					<!--  Добавьте класс task--important, если до выполнения задачи меньше дня-->
-						<?php if ($show_complete_tasks == 1) : ?>
+					<?php if ($show_complete_tasks == 1) : ?>
 							<tr class="tasks__item task task--completed">
 							<td class="task__select">
 							<label class="checkbox task__checkbox">
@@ -129,23 +127,27 @@ $days_until_deadline = null;
 							</label>
 							</td>
 							<td class="task__date">10.04.2017</td>
-
 							<td class="task__controls">
 							</td>
 						</tr> 
-						<?php endif; ?>
-                    <tr class="tasks__item task">
+					<?php endif; ?>
+										
+					<? if ($days_until_deadline <= 0) : ?>
+						<tr class="tasks__item task task--important">
+					<? endif; ?>
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox">
-                                <a href="/"><span class="checkbox__text">Выполнить домашнее задание</span></a>
-                            </label>
+	                                <a href="/"><span class="checkbox__text">Выполнить домашнее задание</span></a> 
+						    </label>
                         </td>
-
+					
                         <td class="task__file">
                         </td>
-
-                        <td class="task__date"><!-- Здесь вывести содержимое переменной $date_deadline --></td>
+						<td class="task__date">
+                        <td class="task__date">
+						<? echo $date_deadline ?> <!-- Здесь вывести содержимое переменной $date_deadline -->
+						</td>
                     </tr>
 
                     <!--показывать следующий тег <tr/>, если переменная равна единице-->
@@ -155,13 +157,10 @@ $days_until_deadline = null;
                                 <input class="checkbox__input visually-hidden" type="checkbox" checked>
                                 <a href="/"><span class="checkbox__text">Сделать главную страницу Дела в порядке</span></a>
                             </label>
-
                         </td>
-
                         <td class="task__file">
                             <a class="download-link" href="#">Home.psd</a>
                         </td>
-
                         <td class="task__date"><!--выведите здесь дату выполнения задачи--></td>
                     </tr>
                 </table>
