@@ -14,8 +14,6 @@ $date_deadline = date('j.m.Y', $task_deadline_ts);
 // в эту переменную запишите кол-во дней до даты задачи
 $diff = $task_deadline_ts - time();
 $days_until_deadline = floor((($diff / 60) / 60) /24);
-
-$days_until_deadline = $task_deadline_ts - $current_ts 
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -109,8 +107,7 @@ $days_until_deadline = $task_deadline_ts - $current_ts
                     <label class="checkbox">
                         <a href="/">
                             <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-                            <input class="checkbox__input visually-hidden" type="checkbox"
-								<?= $show_complete_tasks ? 'checked' : '' ?> >							
+                            <input class="checkbox__input visually-hidden" type="checkbox" <?= $show_complete_tasks ? 'checked' : '' ?> >							
                             <span class="checkbox__text">Показывать выполненные</span>
                         </a>
                     </label>
@@ -131,11 +128,9 @@ $days_until_deadline = $task_deadline_ts - $current_ts
 							</td>
 						</tr> 
 					<?php endif; ?>
-										
-					<? if ($days_until_deadline <= 0) : ?>
-						<tr class="tasks__item task task--important">
-					<? endif; ?>
-                        <td class="task__select">
+
+					<tr class="task__item task <?= $days_until_deadline <= 0 ? 'task--important' : '' ?>">					
+					    <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox">
 	                                <a href="/"><span class="checkbox__text">Выполнить домашнее задание</span></a> 
@@ -145,8 +140,7 @@ $days_until_deadline = $task_deadline_ts - $current_ts
                         <td class="task__file">
                         </td>
 						<td class="task__date">
-                        <td class="task__date">
-						<? echo $date_deadline ?> <!-- Здесь вывести содержимое переменной $date_deadline -->
+						<?= $date_deadline ?> <!-- Здесь вывести содержимое переменной $date_deadline -->
 						</td>
                     </tr>
 
