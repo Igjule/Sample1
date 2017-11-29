@@ -108,24 +108,21 @@ $tasks = array(
                     </label>
                 </div>
 
-                <table class="tasks">
-					<!--  Добавьте класс task--important, если до выполнения задачи меньше дня-->
-					<?php if ($show_complete_tasks == 1) : ?>
-						<?php foreach ($tasks as $rgArr){
-							echo "<tr class='tasks__item task task--completed'>";
-								foreach ($rgArr as $sValue){
-									echo 
-									"<td class='task__select'>
+           <table class="tasks">
+					<?php foreach ($tasks as $Value) {
+							<?php if ($show_complete_tasks == 1) {
+									echo "<td class='task__select'>
 									<label class='checkbox task__checkbox'>
 									<input class='checkbox__input visually-hidden' type='checkbox' checked>
 									<span class='checkbox__text'>
-									{$sValue}</span></label></td>";	
-									}
-									echo "</tr>";
-								}								
-							?>
-					<?php endif; ?>
-					</table>
+									{$Value}</span></label></td>						
+									<td class='task__date'>10.04.2017</td>
+									<td class='task__controls'></td>";	}
+							}
+							?>									
+										
+</table>	
+					
 
 					
             </main>
