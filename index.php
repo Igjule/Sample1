@@ -119,8 +119,7 @@ $tasks = array(
 									<td class='task__date'>10.04.2017</td>
 									<td class='task__controls'></td>";	}
 							}
-							?>									
-										
+							?>	
 </table>	
 					
 
