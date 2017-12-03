@@ -17,13 +17,43 @@ $days_until_deadline = floor((($diff / 60) / 60) /24);
 $projects = array('Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто');
 $projectselemets = count($projects);
 $tasks = array(
-	'a' => array('Собеседование в IT компании','01.06.2018','Работа','Нет'),
-	'b' => array('Выполнить тестовое задание','25.05.2018','Работа','Нет'),
-	'c' => array('Сделать задание первого раздела','21.04.2018','Учеба','Да'),
-	'd' => array('Встреча с другом','22.04.2018','Входящие','Нет'),
-	'e' => array('Купить корм для кота','Нет','Домашние дела','Нет'),
-	'f' => array('Заказать пиццу','Нет','Домашние дела','Нет')
-			);
+	'a' => array(
+		'name' => 'Собеседование в IT компании',
+		'date' => '01.06.2018',
+		'project' => 'Работа',
+		'Completed' => false
+		),
+	'b' => array(
+		'name' => 'Выполнить тестовое задание',
+		'date' => '25.05.2018',
+		'project' => 'Работа',
+		'Completed' => false
+		),
+	'c' => array(
+		'name' => 'Сделать задание первого раздела',
+		'date' => '21.04.2018',
+		'project' => 'Учеба',
+		'Completed' => true
+		),
+	'd' => array(
+		'name' => 'Встреча с другом',
+		'date' => '22.04.2018',
+		'project' => 'Входящие',
+		'Completed' => false,
+		),
+	'e' => array(
+		'name' => 'Купить корм для кота',
+		'date' => false,
+		'project' => 'Домашние дела',
+		'Completed' => false,
+		),
+	'f' => array(
+		'name' => 'Заказать пиццу',
+		'date' => false,
+		'project' => 'Домашние дела',
+		'Completed' => false,
+		)
+		);		
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -61,22 +91,23 @@ $tasks = array(
             </div>
         </header>
 
-        <div class="content">
-            <section class="content__side">
+				<div class="content">
+				<section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>
-                <nav class="main-navigation">
-                    <ul class="main-navigation__list">
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?php echo $projects[0];?></a>
-                            <span class="main-navigation__list-item-count">24</span>
-                        </li></ul>
-                 <?php for($i=1;$i<=$projectselemets;$i++) :?>
-                    <ul class="main-navigation__list">
-                        <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?php echo $projects[$i];?></a>
-                            <span class="main-navigation__list-item-count">14</span>
-                        </li></ul>
-				<?php endfor; ?>
+                <nav class="main-navigation">    
+						<?php foreach ($projects as $key => $project): ?>
+							<ul class="main-navigation__list">
+							<li class=
+									<?php if ($key ==0): ?>
+									"main-navigation__list-item main-navigation__list-item--active"
+									<?php else: ?>
+									"main-navigation__list-item"
+									<?php endif ?>>
+							<a class="main-navigation__list-item-link" href="#"><?= $project;?></a>
+							<span class="main-navigation__list-item-count">14</span>
+							</li>	
+							</ul>
+						<?php endforeach; ?>
                 </nav>
 
                 <a class="button button--transparent button--plus content__side-button" href="#">Добавить проект</a>
