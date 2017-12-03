@@ -21,37 +21,37 @@ $tasks = array(
 		'name' => 'Собеседование в IT компании',
 		'date' => '01.06.2018',
 		'project' => 'Работа',
-		'Completed' => false
+		'completed' => false
 		),
 	'b' => array(
 		'name' => 'Выполнить тестовое задание',
 		'date' => '25.05.2018',
 		'project' => 'Работа',
-		'Completed' => false
+		'completed' => false
 		),
 	'c' => array(
 		'name' => 'Сделать задание первого раздела',
 		'date' => '21.04.2018',
 		'project' => 'Учеба',
-		'Completed' => true
+		'completed' => true
 		),
 	'd' => array(
 		'name' => 'Встреча с другом',
 		'date' => '22.04.2018',
 		'project' => 'Входящие',
-		'Completed' => false,
+		'completed' => false,
 		),
 	'e' => array(
-		'name' => 'Купить корм для кота',
+		'name' => 'Купить корм для скота',
 		'date' => false,
 		'project' => 'Домашние дела',
-		'Completed' => false,
+		'completed' => false,
 		),
 	'f' => array(
 		'name' => 'Заказать пиццу',
 		'date' => false,
 		'project' => 'Домашние дела',
-		'Completed' => false,
+		'completed' => false,
 		)
 		);		
 ?>
@@ -140,21 +140,60 @@ $tasks = array(
                 </div>
 
            <table class="tasks">
-					<?php foreach ($tasks as $Value) {
-							<?php if ($show_complete_tasks == 1) {
-									echo "<td class='task__select'>
-									<label class='checkbox task__checkbox'>
-									<input class='checkbox__input visually-hidden' type='checkbox' checked>
-									<span class='checkbox__text'>
-									{$Value}</span></label></td>						
-									<td class='task__date'>10.04.2017</td>
-									<td class='task__controls'></td>";	}
-							}
-							?>	
-</table>	
+<!--                    Добавьте класс task--important, если до выполнения задачи меньше дня-->
+					<?php foreach ($tasks as $task): ?>
+							<? if ($show_complete_tasks == 1): ?>
+								<tr class="tasks__item task">
+									<td class="task__select">
+									<label class="checkbox task__checkbox">
+									<input class="checkbox__input visually-hidden" type="checkbox" checked>
+									<span class=
+											<?php if ($task[completed]==true): ?>
+											"checkbox__text task--completed"	
+											<?php else: ?>
+											"checkbox__text"
+											<?php endif ?>>
+									<?= $task[name] ?></span>
+									</label>
+									</td>
+									<td class="task__date"><?= $task[date]?></td>
+									<td class="task__controls">
+									</td>
+								</tr>
+							<?php endif; ?>
+					<?php endforeach; ?>
 					
+                    <tr class="task__item task <?= $days_until_deadline <= 0 ? 'task--important' : '' ?>">
+                        <td class="task__select">
+                            <label class="checkbox task__checkbox">
+                                <input class="checkbox__input visually-hidden" type="checkbox">
+                                <a href="/"><span class="checkbox__text">Выполнить домашнее задание</span></a>
+                            </label>
+                        </td>
 
-					
+                        <td class="task__file">
+                        </td>
+
+                        <td class="task__date"><?= $date_deadline?></td>
+                    </tr>
+
+                    <!--показывать следующий тег <tr/>, если переменная равна единице-->
+                    <tr class="tasks__item task task--completed">
+                        <td class="task__select">
+                            <label class="checkbox task__checkbox">
+                                <input class="checkbox__input visually-hidden" type="checkbox" checked>
+                                <a href="/"><span class="checkbox__text">Сделать главную страницу Дела в порядке</span></a>
+                            </label>
+
+                        </td>
+
+                        <td class="task__file">
+                            <a class="download-link" href="#">Home.psd</a>
+                        </td>
+
+                        <td class="task__date"><!--выведите здесь дату выполнения задачи--></td>
+                    </tr>
+                </table>
             </main>
         </div>
     </div>
